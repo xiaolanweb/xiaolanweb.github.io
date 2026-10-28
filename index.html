@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="小蓝web（小蓝视频）官方地址发布页：最新地址每天自动更新，永久地址、邮箱自动回复、Telegram 频道一站找齐。请收藏本页，域名失效时来这里找新地址。">
+<meta name="keywords" content="小蓝视频,小蓝web,小蓝视频web,小蓝最新地址,小蓝最新网址,xiaolan1,最新可用地址,发布页">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="favicon.ico">
+<title>小蓝web 官方发布页 · 请收藏本页</title>
+<script>
+/* ==============================================================
+   ↓↓↓ 只需要改这一段 ↓↓↓
+   · 最新地址：每天自动更新（机器人写到同目录 domains.json），不用手改；
+     机器人挂了想手改，就改 domains.json 里的 latest，或改下面 latestDomains 兜底
+   · 永久地址 / 联系方式 / 注意事项：改这里，改完在 GitHub 网页上点 Commit changes
+     1~2 分钟后页面自动生效
+   ============================================================== */
+const CONFIG = {
+  siteName: "小蓝web",                      // 站名，显示在页面顶部
+  tagline: "官方唯一发布页 · 域名失效时来这里找新地址",
+  // 最新地址兜底：domains.json 读不到时才用这里（一行一个，注意行尾逗号）
+  latestDomains: [
+    "https://56dtd6.b9o9j2b0s3.cc",
+  ],
+  // 永久地址：长期不变的地址
+  permanentDomains: [
+    "https://xiaolan1.com",
+  ],
+  // 检测可用性用的小图路径：主站必须真实存在这张图
+  probePath: "/favicon.ico",
+  // Telegram 频道/群，没有可以留空数组 []；有几个写几个
+  telegram: [
+    { label: "小蓝Web 官方频道 @xiaolanweb", url: "https://t.me/xiaolanweb" },
+    { label: "小蓝Web 求片福利群 @xiaolan1web", url: "https://t.me/xiaolan1web" },
+  ],
+  // 自动回复邮箱：用户发任意消息过去，自动回复最新【免翻墙】地址；没有就留空 ""
+  contactEmail: "xiaolanweb1@gmail.com",
+  // 发布页永久地址（就是本页地址）；留空 "" 则自动用当前网址
+  publishPage: "",
+  // 注意事项：一行一条，想改就改这里；不需要就留空数组 []
+  notices: [
+    "我们推荐 PC 和安卓手机用户使用 Chrome（谷歌）浏览器访问，iPhone 用户建议使用自带的 Safari 浏览器。",
+    "大陆地区用户建议使用 VPN 或代理访问永久地址。",
+    "大陆地区用户强烈建议截图保存当前页面。",
+  ],
+  updated: "2026-10-28",                   // 改这段配置时顺手把日期改成当天
+};
+/* ==============================================================
+   ↑↑↑ 只需要改这一段 ↑↑↑，下面的都不用动
+   ============================================================== */
+</script>
+<style>
+  :root {
+    --bg: #0b0d12;
+    --card: #141822;
+    --card-hover: #1a1f2c;
+    --border: #232a3a;
+    --text: #e8ebf2;
+    --text-dim: #8b93a7;
+    --accent: #5c7bff;
+    --accent-2: #ff538d;
+    --accent-soft: rgba(92, 123, 255, 0.14);
+    --ok: #34c77b;
+    --ok-soft: rgba(52, 199, 123, 0.12);
+    --bad: #e05656;
+    --bad-soft: rgba(224, 86, 86, 0.12);
+    --warn: #d9a13c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+  .wrap {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+  }
+  header { text-align: center; margin-bottom: 28px; }
+  .logo-img {
+    display: block;
+    width: 240px;
+    max-width: 72%;
+    height: auto;
+    margin: 0 auto 14px;
+  }
+  h1 { font-size: 24px; font-weight: 700; letter-spacing: 0.5px; }
+  .tagline { color: var(--text-dim); font-size: 14px; margin-top: 6px; }
+
+  .notice {
+    background: var(--accent-soft);
+    border: 1px solid rgba(92, 123, 255, 0.35);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 13.5px;
+    margin-bottom: 24px;
+    color: #c6d2ff;
+  }
+  .notice strong { color: #fff; }
+  .notice ol { margin: 6px 0 0 20px; }
+  .notice li { margin: 3px 0; }
+
+  .publish-card {
+    background: rgba(217, 161, 60, 0.10);
+    border: 1px solid rgba(217, 161, 60, 0.5);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 26px 0 10px;
+  }
+  .publish-warn {
+    font-size: 13.5px;
+    color: #f0c674;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  .publish-url {
+    margin: 10px 0 10px;
+    background: var(--bg);
+    border: 1px dashed rgba(217, 161, 60, 0.5);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 15px; font-weight: 700;
+    text-align: center;
+    word-break: break-all;
+    color: #fff;
+  }
+  .publish-actions { display: flex; gap: 8px; }
+  .publish-actions .btn { flex: 1; text-align: center; }
+
+  .section-title {
+    font-size: 13px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 26px 0 10px;
+    display: flex; align-items: baseline; justify-content: space-between;
+  }
+  .section-desc {
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 11.5px;
+    color: var(--text-dim);
+    margin-left: 8px;
+    font-weight: 400;
+  }
+  .retest {
+    background: none; border: none;
+    color: var(--accent); font-size: 12.5px;
+    cursor: pointer; padding: 4px 6px;
+    letter-spacing: 0.5px;
+    font-family: inherit;
+  }
+  .retest:active { opacity: 0.6; }
+  .retest:disabled { color: var(--text-dim); cursor: default; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 12px;
+    transition: background 0.15s;
+  }
+  .card.best { border-color: rgba(52, 199, 123, 0.5); }
+  .status {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--text-dim);
+  }
+  .status.checking { animation: pulse 1s infinite; }
+  .status.ok { background: var(--ok); }
+  .status.warn { background: var(--warn); }
+  .status.bad { background: var(--bad); }
+  @keyframes pulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+  .domain-info { flex: 1; min-width: 0; }
+  .domain-url {
+    font-size: 15px; font-weight: 600;
+    word-break: break-all;
+    color: var(--text);
+    text-decoration: none;
+    display: block;
+  }
+  .domain-meta { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+  .domain-meta .ok-text { color: var(--ok); }
+  .domain-meta .warn-text { color: var(--warn); }
+  .domain-meta .bad-text { color: var(--bad); }
+  .best-tag {
+    display: inline-block;
+    background: var(--ok-soft); color: var(--ok);
+    font-size: 11px; font-weight: 600;
+    padding: 1px 8px; border-radius: 20px;
+    margin-left: 6px; vertical-align: 1px;
+  }
+
+  .actions { display: flex; gap: 8px; flex-shrink: 0; }
+  .btn {
+    border: 1px solid var(--border);
+    background: var(--card-hover);
+    color: var(--text);
+    font-size: 13px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    font-family: inherit;
+    line-height: 1.4;
+  }
+  .btn:active { opacity: 0.7; }
+  .btn.primary {
+    background: linear-gradient(135deg, var(--accent), #7d6cff 70%, var(--accent-2));
+    border-color: transparent;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .copy-all {
+    width: 100%;
+    margin-top: 6px;
+    background: var(--card);
+    border: 1px dashed var(--border);
+    color: var(--text-dim);
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 13.5px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .copy-all:active { opacity: 0.7; }
+
+  .tg-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none; color: var(--text);
+  }
+  .tg-icon {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: #2aabee;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .tg-icon svg { width: 20px; height: 20px; fill: #fff; }
+  .tg-icon.mail { background: #64748b; color: #fff; font-size: 17px; }
+  .tg-label { flex: 1; font-size: 14.5px; font-weight: 600; word-break: break-all; }
+  .tg-arrow { color: var(--text-dim); font-size: 18px; }
+
+  .mail-card {
+    background: var(--card);
+    border: 1px solid rgba(92, 123, 255, 0.45);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 10px;
+  }
+  .mail-head { display: flex; gap: 12px; align-items: flex-start; }
+  .mail-title { font-size: 14.5px; font-weight: 600; }
+  .mail-desc { font-size: 12.5px; color: var(--text-dim); margin-top: 2px; }
+  .mail-desc b { color: var(--text); }
+  .mail-addr {
+    margin: 12px 0 10px;
+    background: var(--bg);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 15px; font-weight: 600;
+    text-align: center;
+    word-break: break-all;
+    color: #c6d2ff;
+  }
+  .mail-actions { display: flex; gap: 8px; }
+  .mail-actions .btn { flex: 1; text-align: center; }
+
+  .tips {
+    margin-top: 30px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .tips li { margin: 6px 0 6px 18px; }
+  .tips strong { color: var(--text); }
+
+  footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.8;
+  }
+
+  .toast {
+    position: fixed;
+    left: 50%; bottom: 40px;
+    transform: translateX(-50%) translateY(20px);
+    width: max-content;
+    max-width: calc(100vw - 40px);
+    background: #222a3d;
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-size: 14px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 420px) {
+    .card { flex-wrap: wrap; }
+    .actions { width: 100%; }
+    .actions .btn { flex: 1; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img class="logo-img" src="logo.svg" alt="小蓝视频">
+    <h1 id="site-name"></h1>
+    <p class="tagline" id="tagline"></p>
+  </header>
+
+  <div class="notice">
+    ⭐ <strong>请立即收藏本页</strong>——无论域名怎么变，本页地址永久不变。
+    <ol>
+      <li>在 <strong>Telegram</strong> 里打开的：先点右上角 <strong>⋯</strong>（或 <strong>⋮</strong>），选「<strong>在浏览器中打开</strong>」</li>
+      <li>手机浏览器里：点菜单或分享按钮，选「<strong>添加书签</strong>」或「<strong>添加到主屏幕</strong>」</li>
+      <li>电脑：按 <strong>Ctrl+D</strong>（Mac 按 ⌘+D）</li>
+    </ol>
+  </div>
+
+  <div id="domain-sections"></div>
+  <button class="copy-all" id="copy-all-btn" type="button">📋 一键复制全部地址（保存到备忘录以防万一）</button>
+
+  <div id="contact-section" style="display:none">
+    <div class="section-title"><span>永久联系方式</span></div>
+    <div id="contact-list"></div>
+  </div>
+
+  <div class="publish-card" id="publish-box" style="display:none">
+    <div class="publish-warn">⚠️ 由于风控原因，网址经常被墙，务必保存下面的发布页地址：</div>
+    <div class="publish-url" id="publish-url"></div>
+    <div class="publish-actions">
+      <button class="btn primary" id="publish-copy" type="button">复制发布页地址</button>
+    </div>
+  </div>
+
+  <div class="tips" id="notice-box" style="display:none">
+    <strong style="font-size:13.5px">📌 注意事项</strong>
+    <ul id="notice-list"></ul>
+  </div>
+
+  <div class="tips">
+    <strong style="font-size:13.5px">💡 温馨提示</strong>
+    <ul>
+      <li id="tip-fallback"></li>
+      <li>请以<strong>本页</strong>公布的域名为准，谨防假冒仿冒站。</li>
+      <li>本页跟 Telegram 一样需要<strong>科学上网</strong>才能打开，建议把域名「一键复制」存到手机备忘录，随时能查。</li>
+    </ul>
+  </div>
+
+  <footer>
+    <div id="auto-stamp" style="display:none">最新地址自动更新：<span id="auto-updated"></span></div>
+    <div>页面更新：<span id="updated"></span></div>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- 渲染基本信息 ---------- */
+  document.getElementById("site-name").textContent = CONFIG.siteName;
+  document.getElementById("tagline").textContent = CONFIG.tagline;
+  document.getElementById("updated").textContent = CONFIG.updated;
+  document.title = CONFIG.siteName + " 官方发布页 · 请收藏本页";
+
+  var now = (window.performance && performance.now)
+    ? function () { return performance.now(); }
+    : function () { return Date.now(); };
+
+  /* ---------- 域名归一化：漏写协议头自动补 https:// ---------- */
+  function normalize(url) {
+    url = String(url).trim().replace(/\/+$/, "");
+    if (!/^https?:\/\//i.test(url)) url = "https://" + url;
+    return url;
+  }
+  var GROUPS = [
+    { key: "latest", title: "最新地址", desc: "每天会换，本页自动跟进；打不开时看永久地址", domains: (CONFIG.latestDomains || []).map(normalize) },
+    { key: "permanent", title: "永久地址", desc: "长期不变，认准这个", domains: (CONFIG.permanentDomains || []).map(normalize) },
+  ];
+
+  /* ---------- Toast 提示 ---------- */
+  var toastTimer = null;
+  function showToast(msg) {
+    var t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove("show"); }, 1800);
+  }
+
+  /* ---------- 复制（新 API + 老浏览器双保险） ---------- */
+  function copyText(text, okMsg) {
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta);
+      showToast(ok ? okMsg : "复制失败，请长按手动复制");
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(
+        function () { showToast(okMsg); },
+        fallback
+      );
+    } else {
+      fallback();
+    }
+  }
+
+  /* ---------- 域名卡片渲染：最新地址 + 永久地址 两个板块 ---------- */
+  var sectionsEl = document.getElementById("domain-sections");
+  var rows = [];
+
+  var retestBtn = document.createElement("button");
+  retestBtn.className = "retest";
+  retestBtn.type = "button";
+  retestBtn.textContent = "↻ 重新检测";
+
+  function displayHost(url) {
+    return url.replace(/^https?:\/\//, "").replace(/\/+$/, "");
+  }
+
+  function buildCard(url) {
+      var card = document.createElement("div");
+      card.className = "card";
+
+      var dot = document.createElement("span");
+      dot.className = "status checking";
+
+      var info = document.createElement("div");
+      info.className = "domain-info";
+      var a = document.createElement("a");
+      a.className = "domain-url";
+      a.href = url;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.textContent = displayHost(url);
+      var meta = document.createElement("div");
+      meta.className = "domain-meta";
+      meta.textContent = "检测中…";
+      info.appendChild(a);
+      info.appendChild(meta);
+
+      var actions = document.createElement("div");
+      actions.className = "actions";
+      var go = document.createElement("a");
+      go.className = "btn primary";
+      go.href = url;
+      go.target = "_blank";
+      go.rel = "noopener noreferrer";
+      go.textContent = "访问";
+      var cp = document.createElement("button");
+      cp.className = "btn";
+      cp.type = "button";
+      cp.textContent = "复制";
+      cp.addEventListener("click", function () {
+        copyText(displayHost(url), "已复制 " + displayHost(url));
+      });
+      actions.appendChild(go);
+      actions.appendChild(cp);
+
+      card.appendChild(dot);
+      card.appendChild(info);
+      card.appendChild(actions);
+
+      rows.push({ url: url, card: card, dot: dot, meta: meta, ms: null });
+      return card;
+  }
+
+  function render() {
+    sectionsEl.innerHTML = "";
+    rows = [];
+    var placedRetest = false;
+    GROUPS.forEach(function (g) {
+      if (!g.domains.length) return;
+      var st = document.createElement("div");
+      st.className = "section-title";
+      var label = document.createElement("span");
+      label.textContent = g.title;
+      if (g.desc) {
+        var d = document.createElement("span");
+        d.className = "section-desc";
+        d.textContent = g.desc;
+        label.appendChild(d);
+      }
+      st.appendChild(label);
+      if (!placedRetest) { st.appendChild(retestBtn); placedRetest = true; }
+      sectionsEl.appendChild(st);
+      g.domains.forEach(function (url) { sectionsEl.appendChild(buildCard(url)); });
+    });
+  }
+
+  /* ---------- 可用性检测 ----------
+     第一步用图片探测（加载主站上一张真实存在的小图）：图片能加载 = 站点真的活着；
+     停放页/网关错误页返回的是网页不是图片，不会误报「可用」。
+     图片探测失败时，退一步用 no-cors 请求判断域名是否「有响应但内容未必正常」。
+     加了代次（generation）防护：点重新检测后，旧一轮迟到的结果一律丢弃。 */
+  var probeGen = 0;
+  var PROBE_TIMEOUT = 6000;
+
+  function probeImage(url) {
+    return new Promise(function (resolve) {
+      var img = new Image();
+      var t0 = now();
+      var done = false;
+      var timer = setTimeout(function () { settle(false); }, PROBE_TIMEOUT);
+      function settle(ok) {
+        if (done) return;
+        done = true;
+        clearTimeout(timer);
+        img.onload = img.onerror = null;
+        resolve(ok ? Math.round(now() - t0) : -1);
+      }
+      img.onload = function () { settle(true); };
+      img.onerror = function () { settle(false); };
+      img.src = url + (CONFIG.probePath || "/favicon.ico") + "?_t=" + Date.now();
+    });
+  }
+
+  function probeFetch(url) {
+    if (!window.fetch) return Promise.resolve(false);
+    var controller = ("AbortController" in window) ? new AbortController() : null;
+    var timer = controller ? setTimeout(function () { controller.abort(); }, PROBE_TIMEOUT) : null;
+    var opts = { mode: "no-cors", cache: "no-store" };
+    if (controller) opts.signal = controller.signal;
+    return fetch(url + "/?_t=" + Date.now(), opts).then(
+      function () { if (timer) clearTimeout(timer); return true; },
+      function () { if (timer) clearTimeout(timer); return false; }
+    );
+  }
+
+  function setStatus(row, cls, html) {
+    row.dot.className = "status" + (cls ? " " + cls : "");
+    row.meta.innerHTML = html;
+  }
+
+  function probe(row, gen) {
+    setStatus(row, "checking", "检测中…");
+    row.ms = null;
+    return probeImage(row.url).then(function (ms) {
+      if (gen !== probeGen) return;
+      if (ms >= 0) {
+        row.ms = ms;
+        setStatus(row, "ok", '<span class="ok-text">✓ 连接正常</span> · 响应 ' + ms + " ms");
+        return;
+      }
+      return probeFetch(row.url).then(function (alive) {
+        if (gen !== probeGen) return;
+        if (alive) {
+          setStatus(row, "warn", '<span class="warn-text">△ 有响应但未必正常</span>，点「访问」确认');
+        } else {
+          setStatus(row, "bad", '<span class="bad-text">✗ 暂时无法连接</span>（也可能是你的网络波动，可点「访问」试试）');
+        }
+      });
+    });
+  }
+
+  function markBest() {
+    var best = null;
+    rows.forEach(function (r) {
+      r.card.classList.remove("best");
+      var old = r.card.querySelector(".best-tag");
+      if (old) old.remove();
+      if (r.ms !== null && (best === null || r.ms < best.ms)) best = r;
+    });
+    if (best) {
+      best.card.classList.add("best");
+      var tag = document.createElement("span");
+      tag.className = "best-tag";
+      tag.textContent = "推荐";
+      best.card.querySelector(".domain-url").appendChild(tag);
+    }
+  }
+
+  function testAll() {
+    var gen = ++probeGen;
+    retestBtn.disabled = true;
+    retestBtn.textContent = "检测中…";
+    Promise.all(rows.map(function (r) { return probe(r, gen); })).then(function () {
+      if (gen !== probeGen) return;
+      markBest();
+      retestBtn.disabled = false;
+      retestBtn.textContent = "↻ 重新检测";
+    });
+  }
+
+  /* ---------- 最新地址自动更新：读同目录 domains.json（机器人每小时检查、域名变了就改它） ----------
+     读不到（断网 / 文件没了 / 本地 file:// 打开）就沿用上面 CONFIG.latestDomains 兜底，页面照常可用。 */
+  function loadRemoteLatest() {
+    if (!window.fetch) return Promise.resolve(null);
+    var controller = ("AbortController" in window) ? new AbortController() : null;
+    var timer = controller ? setTimeout(function () { controller.abort(); }, 5000) : null;
+    var opts = { cache: "no-store" };
+    if (controller) opts.signal = controller.signal;
+    return fetch("domains.json?_t=" + Date.now(), opts)
+      .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
+      .then(function (j) {
+        if (timer) clearTimeout(timer);
+        if (!j || !Array.isArray(j.latest) || !j.latest.length) return null;
+        return j;
+      }, function () { if (timer) clearTimeout(timer); return null; });
+  }
+
+  function applyRemote(j) {
+    var list = j.latest.map(normalize);
+    var g = GROUPS[0];
+    if (list.join("|") !== g.domains.join("|")) {
+      g.domains = list;
+      render();
+      testAll();
+    }
+    if (j.updated) {
+      document.getElementById("auto-updated").textContent = String(j.updated);
+      document.getElementById("auto-stamp").style.display = "";
+    }
+  }
+
+  /* ---------- 事件 ---------- */
+  retestBtn.addEventListener("click", testAll);
+  document.getElementById("copy-all-btn").addEventListener("click", function () {
+    var lines = [CONFIG.siteName + " 地址（" + CONFIG.updated + "）"];
+    GROUPS.forEach(function (g) {
+      if (!g.domains.length) return;
+      lines.push(g.title + "：");
+      g.domains.forEach(function (u) { lines.push(u); });
+    });
+    lines.push("发布页（收藏这个，永久不变）：" + pubUrl);
+    copyText(lines.join("\n"), "已复制全部地址");
+  });
+
+  /* ---------- 永久联系方式：Telegram + 备用邮箱 ---------- */
+  var hasTg = CONFIG.telegram && CONFIG.telegram.length > 0;
+  var hasMail = CONFIG.contactEmail && CONFIG.contactEmail.trim() !== "";
+  if (hasTg || hasMail) {
+    document.getElementById("contact-section").style.display = "";
+    var contactList = document.getElementById("contact-list");
+    if (hasMail) {
+      var mail = CONFIG.contactEmail.trim();
+      var mc = document.createElement("div");
+      mc.className = "mail-card";
+      mc.innerHTML =
+        '<div class="mail-head"><span class="tg-icon mail">✉</span><div>' +
+        '<div class="mail-title">发邮件自动获取最新【免翻墙】地址</div>' +
+        '<div class="mail-desc">用你常用的任意邮箱（QQ、163 都可以）发送<b>任意内容</b>到下面地址，系统自动回复最新地址，<b>不用翻墙</b></div>' +
+        '</div></div>' +
+        '<div class="mail-addr"></div>' +
+        '<div class="mail-actions"><a class="btn primary">发邮件</a><button class="btn" type="button">复制邮箱</button></div>';
+      mc.querySelector(".mail-addr").textContent = mail;
+      mc.querySelector("a.btn").href = "mailto:" + mail;
+      mc.querySelector("button.btn").addEventListener("click", function () {
+        copyText(mail, "已复制邮箱 " + mail);
+      });
+      contactList.appendChild(mc);
+    }
+    if (hasTg) {
+      CONFIG.telegram.forEach(function (item) {
+        var a = document.createElement("a");
+        a.className = "tg-card";
+        a.href = item.url;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.innerHTML =
+          '<span class="tg-icon"><svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.14-3.05-1.99 1.93c-.23.23-.42.41-.83.41z"/></svg></span>' +
+          '<span class="tg-label"></span><span class="tg-arrow">›</span>';
+        a.querySelector(".tg-label").textContent = item.label;
+        contactList.appendChild(a);
+      });
+    }
+  }
+
+  /* ---------- 兜底提示随配置变化 ---------- */
+  var tipEl = document.getElementById("tip-fallback");
+  if (hasMail && hasTg) {
+    tipEl.textContent = "如果所有域名都打不开：给上方邮箱发一封邮件（内容随意）自动获取最新地址，或通过 Telegram 联系我们。";
+  } else if (hasMail) {
+    tipEl.textContent = "如果所有域名都打不开：给上方邮箱发一封邮件（内容随意），系统会自动回复最新地址，发邮件不用翻墙。";
+  } else if (hasTg) {
+    tipEl.textContent = "如果所有域名都打不开，请通过上方 Telegram 获取最新地址。";
+  } else {
+    tipEl.textContent = "请提前把域名复制保存到手机备忘录，以防临时打不开。";
+  }
+
+  /* ---------- 发布页地址（本页永久地址） ---------- */
+  var pubUrl = (CONFIG.publishPage && CONFIG.publishPage.trim())
+    ? CONFIG.publishPage.trim()
+    : location.href.split("#")[0].split("?")[0];
+  document.getElementById("publish-box").style.display = "";
+  document.getElementById("publish-url").textContent = pubUrl;
+  document.getElementById("publish-copy").addEventListener("click", function () {
+    copyText(pubUrl, "已复制发布页地址");
+  });
+
+  /* ---------- 注意事项 ---------- */
+  if (CONFIG.notices && CONFIG.notices.length) {
+    document.getElementById("notice-box").style.display = "";
+    var noticeList = document.getElementById("notice-list");
+    CONFIG.notices.forEach(function (text) {
+      var li = document.createElement("li");
+      li.textContent = text;
+      noticeList.appendChild(li);
+    });
+  }
+
+  /* ---------- 启动：先按 CONFIG 画出来并检测，再拉 domains.json 覆盖最新地址 ---------- */
+  render();
+  testAll();
+  loadRemoteLatest().then(function (j) { if (j) applyRemote(j); });
+})();
+</script>
+</body>
+</html>
