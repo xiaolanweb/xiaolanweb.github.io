@@ -34,4 +34,5 @@ xiaolan1.com 公布的最新网址，变了就自动改这个文件并提交，1
 - 只改 `CONFIG` 那一段，页面其他部分不用动
 - 网址建议带 `https://`（漏写了页面也会自动补上）
 - `probePath` 是「可用性检测」用的小图路径，主站必须真实存在这张图（默认 `/favicon.ico`）
+- `og.png` 是分享卡片图（1200×630），源文件在 `og-src/og.html`，改完用 Chrome 无头重新截一张即可
 - 机器人改 `domains.json` 的代码见 `vps-hook/`
