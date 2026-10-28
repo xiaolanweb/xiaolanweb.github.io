@@ -68,6 +68,8 @@ const CONFIG = {
     "大陆地区用户建议使用 VPN 或代理访问永久地址。",
     "大陆地区用户强烈建议截图保存当前页面。",
   ],
+  // Google Analytics 4 的衡量 ID（G- 开头）；留空 "" 就不加载统计
+  gaMeasurementId: "G-F4BVE55JGK",
   updated: "2026-10-28",                   // 改这段配置时顺手把日期改成当天
 };
 /* ==============================================================
@@ -487,6 +489,23 @@ const CONFIG = {
     { key: "permanent", title: "永久地址", desc: "长期不变；xiaolan2.com 免翻墙中转，打开自动跳到最新站", domains: (CONFIG.permanentDomains || []).map(normalize) },
   ];
 
+  /* ---------- 统计：GA4 按需加载 + 事件上报（没配 ID 时全部是空操作） ---------- */
+  var GA_ID = (CONFIG.gaMeasurementId || "").trim();
+  if (GA_ID) {
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("js", new Date());
+    gtag("config", GA_ID, { anonymize_ip: true });
+    var gs = document.createElement("script");
+    gs.async = true;
+    gs.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_ID);
+    document.head.appendChild(gs);
+  }
+  function track(name, params) {
+    if (!GA_ID || typeof window.gtag !== "function") return;
+    try { gtag("event", name, params || {}); } catch (e) {}
+  }
+
   /* ---------- Toast 提示 ---------- */
   var toastTimer = null;
   function showToast(msg) {
@@ -535,7 +554,7 @@ const CONFIG = {
     return url.replace(/^https?:\/\//, "").replace(/\/+$/, "");
   }
 
-  function buildCard(url) {
+  function buildCard(url, group) {
       var card = document.createElement("div");
       card.className = "card";
 
@@ -564,11 +583,18 @@ const CONFIG = {
       go.target = "_blank";
       go.rel = "noopener noreferrer";
       go.textContent = "访问";
+      go.addEventListener("click", function () {
+        track("address_click", { domain: displayHost(url), address_group: group });
+      });
+      a.addEventListener("click", function () {
+        track("address_click", { domain: displayHost(url), address_group: group, via: "text" });
+      });
       var cp = document.createElement("button");
       cp.className = "btn";
       cp.type = "button";
       cp.textContent = "复制";
       cp.addEventListener("click", function () {
+        track("address_copy", { domain: displayHost(url), address_group: group });
         copyText(displayHost(url), "已复制 " + displayHost(url));
       });
       actions.appendChild(go);
@@ -601,7 +627,7 @@ const CONFIG = {
       st.appendChild(label);
       if (!placedRetest) { st.appendChild(retestBtn); placedRetest = true; }
       sectionsEl.appendChild(st);
-      g.domains.forEach(function (url) { sectionsEl.appendChild(buildCard(url)); });
+      g.domains.forEach(function (url) { sectionsEl.appendChild(buildCard(url, g.key)); });
     });
   }
 
@@ -657,6 +683,7 @@ const CONFIG = {
       if (ms >= 0) {
         row.ms = ms;
         setStatus(row, "ok", '<span class="ok-text">✓ 连接正常</span> · 响应 ' + ms + " ms");
+        track("probe_result", { domain: displayHost(row.url), result: "ok", ms: ms });
         return;
       }
       return probeFetch(row.url).then(function (alive) {
@@ -666,6 +693,7 @@ const CONFIG = {
         } else {
           setStatus(row, "bad", '<span class="bad-text">✗ 暂时无法连接</span>（也可能是你的网络波动，可点「访问」试试）');
         }
+        track("probe_result", { domain: displayHost(row.url), result: alive ? "warn" : "bad" });
       });
     });
   }
@@ -732,7 +760,7 @@ const CONFIG = {
   }
 
   /* ---------- 事件 ---------- */
-  retestBtn.addEventListener("click", testAll);
+  retestBtn.addEventListener("click", function () { track("retest"); testAll(); });
   document.getElementById("copy-all-btn").addEventListener("click", function () {
     var lines = [CONFIG.siteName + " 地址（" + CONFIG.updated + "）"];
     GROUPS.forEach(function (g) {
@@ -741,6 +769,7 @@ const CONFIG = {
       g.domains.forEach(function (u) { lines.push(u); });
     });
     lines.push("发布页（收藏这个，永久不变）：" + pubUrl);
+    track("copy_all");
     copyText(lines.join("\n"), "已复制全部地址");
   });
 
@@ -763,7 +792,9 @@ const CONFIG = {
         '<div class="mail-actions"><a class="btn primary">发邮件</a><button class="btn" type="button">复制邮箱</button></div>';
       mc.querySelector(".mail-addr").textContent = mail;
       mc.querySelector("a.btn").href = "mailto:" + mail;
+      mc.querySelector("a.btn").addEventListener("click", function () { track("contact_click", { channel: "email" }); });
       mc.querySelector("button.btn").addEventListener("click", function () {
+        track("contact_click", { channel: "email_copy" });
         copyText(mail, "已复制邮箱 " + mail);
       });
       contactList.appendChild(mc);
@@ -779,6 +810,7 @@ const CONFIG = {
           '<span class="tg-icon"><svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.14-3.05-1.99 1.93c-.23.23-.42.41-.83.41z"/></svg></span>' +
           '<span class="tg-label"></span><span class="tg-arrow">›</span>';
         a.querySelector(".tg-label").textContent = item.label;
+        a.addEventListener("click", function () { track("contact_click", { channel: "telegram", label: item.label }); });
         contactList.appendChild(a);
       });
     }
@@ -803,6 +835,7 @@ const CONFIG = {
   document.getElementById("publish-box").style.display = "";
   document.getElementById("publish-url").textContent = pubUrl;
   document.getElementById("publish-copy").addEventListener("click", function () {
+    track("publish_copy");
     copyText(pubUrl, "已复制发布页地址");
   });
 
