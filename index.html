@@ -26,6 +26,7 @@ const CONFIG = {
   ],
   // 永久地址：长期不变的地址
   permanentDomains: [
+    "https://xiaolan2.com",
     "https://xiaolan1.com",
   ],
   // 检测可用性用的小图路径：主站必须真实存在这张图
@@ -404,7 +405,7 @@ const CONFIG = {
   }
   var GROUPS = [
     { key: "latest", title: "最新地址", desc: "每天会换，本页自动跟进；打不开时看永久地址", domains: (CONFIG.latestDomains || []).map(normalize) },
-    { key: "permanent", title: "永久地址", desc: "长期不变，认准这个", domains: (CONFIG.permanentDomains || []).map(normalize) },
+    { key: "permanent", title: "永久地址", desc: "长期不变；xiaolan2.com 免翻墙中转，打开自动跳到最新站", domains: (CONFIG.permanentDomains || []).map(normalize) },
   ];
 
   /* ---------- Toast 提示 ---------- */
