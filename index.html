@@ -43,9 +43,10 @@ const CONFIG = {
     "https://xiaolan2.com",
     "https://xiaolan1.com",
   ],
-  // 最新地址随机二级域名：主站是泛解析（随便什么二级域名都能打开），每条最新地址再随机生成几条
-  // 不同二级域名的（主域名不变），用户任选一条，哪条被墙换另一条。0 = 关掉这个功能
-  randomSubdomains: 2,
+  // 最新地址随机二级域名：主站是泛解析（随便什么二级域名都能打开）。
+  // 机器人给的地址只取主域名（56dtd6.b9o9j2b0s3.cc → b9o9j2b0s3.cc），然后随机生成几条二级域名，
+  // 每次打开页面都重新随机，用户任选一条，哪条被墙换另一条。这里填显示几条；0 = 不随机，原样显示
+  randomSubdomains: 3,
   randomSubdomainLength: 6,
   // 检测可用性用的小图路径：主站必须真实存在这张图
   probePath: "/favicon.ico",
@@ -421,9 +422,10 @@ const CONFIG = {
     if (!/^https?:\/\//i.test(url)) url = "https://" + url;
     return url;
   }
-  /* ---------- 随机二级域名：主域名不变，前面那段随机，同一主域名多给几个入口 ----------
-     只对本来就带二级域名的地址做（如 56dtd6.b9o9j2b0s3.cc → 随机.b9o9j2b0s3.cc）；
-     裸域名（xiaolan1.com 这种）不动，因为不一定有泛解析。每次打开页面都重新随机。 */
+  /* ---------- 随机二级域名：机器人给的地址只取主域名，二级域名永远随机生成 ----------
+     56dtd6.b9o9j2b0s3.cc → 主域名 b9o9j2b0s3.cc → 随机.b9o9j2b0s3.cc × N；
+     机器人给的是裸域名（xxx.cc）也一样挂随机二级域名。每次打开页面都重新随机。
+     只影响「最新地址」这组，永久地址原样显示。 */
   var RAND_N = Math.max(0, parseInt(CONFIG.randomSubdomains, 10) || 0);
   var RAND_LEN = Math.max(3, parseInt(CONFIG.randomSubdomainLength, 10) || 6);
   function randLabel() {
@@ -437,14 +439,20 @@ const CONFIG = {
     }
     return out;
   }
+  /* 主域名 = 去掉最左边一段；只有两段（xxx.cc）就原样；三段但像 xxx.com.cn 这种双后缀也原样 */
+  var SECOND_LEVEL = { com: 1, net: 1, org: 1, gov: 1, edu: 1, co: 1, ac: 1 };
+  function baseDomain(host) {
+    var labels = host.split(".");
+    if (labels.length < 3) return host;
+    if (labels.length === 3 && SECOND_LEVEL[labels[1]] && labels[2].length === 2) return host;
+    return labels.slice(1).join(".");
+  }
   function expandRandom(list) {
     var out = [], seen = {};
     list.forEach(function (url) {
-      if (!seen[url]) { seen[url] = 1; out.push(url); }
       var host = url.replace(/^https?:\/\//, "").split("/")[0];
-      var labels = host.split(".");
-      if (RAND_N <= 0 || labels.length < 3) return;
-      var base = labels.slice(1).join(".");
+      if (RAND_N <= 0) { if (!seen[url]) { seen[url] = 1; out.push(url); } return; }
+      var base = baseDomain(host);
       var made = 0, guard = 0;
       while (made < RAND_N && guard++ < 50) {
         var u = "https://" + randLabel() + "." + base;
