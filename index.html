@@ -43,6 +43,10 @@ const CONFIG = {
     "https://xiaolan2.com",
     "https://xiaolan1.com",
   ],
+  // 最新地址随机二级域名：主站是泛解析（随便什么二级域名都能打开），每条最新地址再随机生成几条
+  // 不同二级域名的（主域名不变），用户任选一条，哪条被墙换另一条。0 = 关掉这个功能
+  randomSubdomains: 2,
+  randomSubdomainLength: 6,
   // 检测可用性用的小图路径：主站必须真实存在这张图
   probePath: "/favicon.ico",
   // Telegram 频道/群，没有可以留空数组 []；有几个写几个
@@ -417,8 +421,42 @@ const CONFIG = {
     if (!/^https?:\/\//i.test(url)) url = "https://" + url;
     return url;
   }
+  /* ---------- 随机二级域名：主域名不变，前面那段随机，同一主域名多给几个入口 ----------
+     只对本来就带二级域名的地址做（如 56dtd6.b9o9j2b0s3.cc → 随机.b9o9j2b0s3.cc）；
+     裸域名（xiaolan1.com 这种）不动，因为不一定有泛解析。每次打开页面都重新随机。 */
+  var RAND_N = Math.max(0, parseInt(CONFIG.randomSubdomains, 10) || 0);
+  var RAND_LEN = Math.max(3, parseInt(CONFIG.randomSubdomainLength, 10) || 6);
+  function randLabel() {
+    var letters = "abcdefghijklmnopqrstuvwxyz", all = letters + "0123456789", out = "";
+    var buf = new Uint8Array(RAND_LEN);
+    if (window.crypto && crypto.getRandomValues) { crypto.getRandomValues(buf); }
+    else { for (var j = 0; j < RAND_LEN; j++) buf[j] = Math.floor(Math.random() * 256); }
+    for (var i = 0; i < RAND_LEN; i++) {
+      var pool = (i === 0) ? letters : all;
+      out += pool.charAt(buf[i] % pool.length);
+    }
+    return out;
+  }
+  function expandRandom(list) {
+    var out = [], seen = {};
+    list.forEach(function (url) {
+      if (!seen[url]) { seen[url] = 1; out.push(url); }
+      var host = url.replace(/^https?:\/\//, "").split("/")[0];
+      var labels = host.split(".");
+      if (RAND_N <= 0 || labels.length < 3) return;
+      var base = labels.slice(1).join(".");
+      var made = 0, guard = 0;
+      while (made < RAND_N && guard++ < 50) {
+        var u = "https://" + randLabel() + "." + base;
+        if (seen[u]) continue;
+        seen[u] = 1; out.push(u); made++;
+      }
+    });
+    return out;
+  }
+  var latestSource = (CONFIG.latestDomains || []).map(normalize);
   var GROUPS = [
-    { key: "latest", title: "最新地址", desc: "每天会换，本页自动跟进；打不开时看永久地址", domains: (CONFIG.latestDomains || []).map(normalize) },
+    { key: "latest", title: "最新地址", desc: "每天会换，本页自动跟进；任选一条，打不开就换下一条", domains: expandRandom(latestSource) },
     { key: "permanent", title: "永久地址", desc: "长期不变；xiaolan2.com 免翻墙中转，打开自动跳到最新站", domains: (CONFIG.permanentDomains || []).map(normalize) },
   ];
 
@@ -654,8 +692,9 @@ const CONFIG = {
   function applyRemote(j) {
     var list = j.latest.map(normalize);
     var g = GROUPS[0];
-    if (list.join("|") !== g.domains.join("|")) {
-      g.domains = list;
+    if (list.join("|") !== latestSource.join("|")) {
+      latestSource = list;
+      g.domains = expandRandom(latestSource);
       render();
       testAll();
     }
