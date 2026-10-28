@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="小蓝web">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:title" content="小蓝web 官方发布页 · 请收藏本页">
+<meta property="og:title" content="小蓝web｜小蓝视频 官方发布页 · 最新地址 · 请收藏">
 <meta property="og:description" content="域名失效时来这里找新地址。最新地址每天自动更新，永久地址、邮箱自动回复、Telegram 频道一站找齐。">
 <meta property="og:url" content="https://xiaolanweb.github.io/">
 <meta property="og:image" content="https://xiaolanweb.github.io/og.png">
@@ -22,7 +22,8 @@
 <meta name="twitter:description" content="域名失效时来这里找新地址。最新地址每天自动更新。">
 <meta name="twitter:image" content="https://xiaolanweb.github.io/og.png">
 <link rel="icon" href="favicon.ico">
-<title>小蓝web 官方发布页 · 请收藏本页</title>
+<title>小蓝web｜小蓝视频 官方发布页｜最新地址 · 永久地址 · 请收藏</title>
+<link rel="canonical" href="https://xiaolanweb.github.io/">
 <script>
 /* ==============================================================
    ↓↓↓ 只需要改这一段 ↓↓↓
@@ -314,6 +315,17 @@ const CONFIG = {
   .tips li { margin: 6px 0 6px 18px; }
   .tips strong { color: var(--text); }
 
+  .about {
+    margin-top: 30px;
+    padding: 0 4px;
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .about h2 { font-size: 14px; color: var(--text); margin-bottom: 6px; font-weight: 600; }
+  .about p { margin: 6px 0; }
+  .about strong { color: var(--text); font-weight: 600; }
+
   footer {
     text-align: center;
     margin-top: 30px;
@@ -351,8 +363,8 @@ const CONFIG = {
 <div class="wrap">
   <header>
     <img class="logo-img" src="logo.svg" alt="小蓝视频">
-    <h1 id="site-name"></h1>
-    <p class="tagline" id="tagline"></p>
+    <h1 id="site-name">小蓝web</h1>
+    <p class="tagline" id="tagline">官方唯一发布页 · 域名失效时来这里找新地址</p>
   </header>
 
   <div class="notice">
@@ -394,6 +406,12 @@ const CONFIG = {
     </ul>
   </div>
 
+  <section class="about">
+    <h2>关于小蓝web 官方发布页</h2>
+    <p>本页是<strong>小蓝web（小蓝视频）</strong>唯一的官方地址发布页。小蓝视频网址打不开、域名失效或被墙时，来这里查<strong>小蓝web 最新地址</strong>：最新地址每天自动更新，永久地址 xiaolan2.com（免翻墙中转）和 xiaolan1.com 长期不变。</p>
+    <p>也可以发任意邮件到 xiaolanweb1@gmail.com 自动获取最新地址，或关注 Telegram 官方频道 @xiaolanweb。请收藏本页 xiaolanweb.github.io，认准本页公布的域名，谨防仿冒站。</p>
+  </section>
+
   <footer>
     <div id="auto-stamp" style="display:none">最新地址自动更新：<span id="auto-updated"></span></div>
     <div>页面更新：<span id="updated"></span></div>
@@ -410,7 +428,6 @@ const CONFIG = {
   document.getElementById("site-name").textContent = CONFIG.siteName;
   document.getElementById("tagline").textContent = CONFIG.tagline;
   document.getElementById("updated").textContent = CONFIG.updated;
-  document.title = CONFIG.siteName + " 官方发布页 · 请收藏本页";
 
   var now = (window.performance && performance.now)
     ? function () { return performance.now(); }
